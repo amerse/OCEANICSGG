@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+Proposed Level of Achievement: 
+Project Gemini 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Motivation: 
+Traveling with friends is always exciting, but managing shared expenses can be a hassle. Keeping track of who paid for what and calculating how much each person owes often leads to confusion and miscalculations. To simplify this process, we aim to develop an app that automates expense logging, streamlines cost-sharing, and facilitates easy repayments, ensuring a stress-free and transparent financial experience during group trips.
 
-## Available Scripts
+Aim: 
+To provide an easy-to-use solution for tracking shared expenses, ensuring fair cost distribution and smooth settlements among groups.
 
-In the project directory, you can run:
+User Stories: 
+As a traveler in a group, I want to log expenses easily, so that I can keep track of who paid for what.
+As a group member, I want to categorize expenses (e.g., food, transport, accommodation), so that I can analyze spending patterns.
+As a group member, I want to split expenses equally or customize the split, so that I can fairly divide the costs among participants.
+As a payer, I want to assign shared expenses to specific members, so that only relevant people contribute.
+As a group member, I want to view a summary of who owes how much, so that I can understand my financial obligations.
+As a group member, I want to see the most efficient way to settle debts, so that I can minimize the number of transactions needed.
+As a group member, I want to invite others to join an expense group, so that we can collaboratively track our spending.
+As a user, I want to receive reminders for pending payments, so that I don’t forget to settle my share.
 
-### `npm start`
+Scope of Project: 
+The website provides an intuitive platform for tracking shared expenses during group trips. It allows users to log expenses, assign payers and participants for each cost, calculate how much each person owes or is owed, and view a summary of balances.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Features to be completed by the end of June: 
+1. Expense Logging Component 
+a. Users can log expenses under various categories (Food, transport etc.) 
+2. Cost Splitting Component 
+a. Users can split expenses equally within a group / assign shared expenses to relevant members
+3. Debt Calculation & Settlement Component 
+a. Users can view a summary of who owes who, and see the most efficient way to settle debts
+Features to be completed by the end of July: 
+1. Notifications component
+	a. Users will receive reminders for pending payments.
 
-### `npm test`
+Tech Stack 
+1. React (Frontend) 
+2. Express + Node.js 
+3. Postgresql (Backend) 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Development Plan 
+3rd week of May: Finalized pitch for Orbital Lift-off 
+4th & 5th week of May: Pick up necessary technologies - React, Nodejs, Expressjs, Postgres 
+1st week of June: Finalized minimum data sets and login/signup features
+2nd to 4th week of June: Start building Components / Testing & Debugging
+1st week of July: Implementation of peer teams’ suggestions 
+2nd week of July: Implement additional capabilities – notifications component
+3rd week of July: Testing and debugging
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
