@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Signup({ onCancel }) {
+function Signup({ onCancel, onSuccess }) {
   const [form, setForm] = useState({ username: '', email: '', password: '' });
 
   const handleChange = e => {
@@ -15,7 +15,10 @@ function Signup({ onCancel }) {
       body: JSON.stringify(form),
     });
     if (res.ok) {
+      const responseUsername = form.username; // Assuming the username is in the form state
+      localStorage.setItem('username', responseUsername);
       alert('Registration successful!');
+      if (onSuccess) onSuccess();
     } else {
       alert('Registration failed.');
     }

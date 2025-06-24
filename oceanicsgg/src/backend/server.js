@@ -57,7 +57,31 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Create group endpoint
+app.post('/groups', async (req, res) => {
+  const { groupName, names } = req.body;
+  try {
+    console.log('Registering /groups endpoint');
+    const groupResult = await pool.query(
+      'INSERT INTO groups (name) VALUES ($1) RETURNING id',
+      [groupName]
+    );
+    const groupId = groupResult.rows[0].id;
+    for (const name of names) {
+      await pool.query(
+        'INSERT INTO group_members (group_id, member_name) VALUES ($1, $2)',
+        [groupId, name]
+      );
+    }
+    res.status(201).json({ message: 'Group created', groupId });
+  } catch (err) {
+    console.error('Error creating group:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+  console.log("=== THIS IS THE CORRECT SERVER.JS ===");
 });

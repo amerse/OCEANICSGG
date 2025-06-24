@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Login({ onCancel }) {
+function Login({ onCancel, onSuccess }) {
   const [form, setForm] = useState({ email: '', password: '' });
 
   const handleChange = e => {
@@ -15,8 +15,11 @@ function Login({ onCancel }) {
       body: JSON.stringify(form),
     });
     if (res.ok) {
+      const responseUsername = form.email.split('@')[0]; // Assuming the username is the part before "@" in the email
       alert('Login successful!');
-      // Optionally redirect or set auth state here
+      localStorage.setItem('userEmail', form.email);
+      localStorage.setItem('username', responseUsername); // Add this line
+      if (onSuccess) onSuccess();
     } else {
       alert('Login failed.');
     }
