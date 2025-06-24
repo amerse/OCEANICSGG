@@ -66,5 +66,3 @@ OceanicsGG provides an intuitive platform for tracking shared expenses during gr
 - **3rd week of July:** Testing and debugging
 
 ---
-
-
