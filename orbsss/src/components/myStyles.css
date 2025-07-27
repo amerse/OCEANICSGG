@@ -1,0 +1,5 @@
+.welcome-container {
+  max-width: 700px;   /* or any width you prefer */
+  margin: 40px auto;  /* centers the container horizontally */
+  padding: 20px;
+}
