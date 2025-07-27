@@ -15,8 +15,8 @@ function Signup({ onCancel, onSuccess }) {
       body: JSON.stringify(form),
     });
     if (res.ok) {
-      const responseUsername = form.username; // Assuming the username is in the form state
-      localStorage.setItem('username', responseUsername);
+      localStorage.setItem('username', form.username);
+      localStorage.setItem('user_id', form.username);
       alert('Registration successful!');
       if (onSuccess) onSuccess();
     } else {

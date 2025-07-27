@@ -7,11 +7,37 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Homepage from './components/Homepage';
 import MyGroups from './components/MyGroups';
+import Expenses from './components/Expenses';
+import Settle from './components/Settle';
+import Header from './components/Header';
 import './App.css';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('username'));
+
+  const handleLoginSuccess = () => {
+    setShowLogin(false);
+    setLoggedIn(true);
+    window.location.href = "/homepage";
+  };
+
+  const handleSignupSuccess = () => {
+    setShowSignup(false);
+    setLoggedIn(true);
+    window.location.href = "/homepage";
+  };
+
+  const handleSignOut = () => {
+    // Remove reminder flag for session
+    sessionStorage.removeItem('reminderShown');
+    // Clear user info
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('username');
+    setLoggedIn(false);
+    window.location.href = "/";
+  };
 
   const Landing = () => (
     <>
@@ -24,14 +50,12 @@ function App() {
 
   return (
     <Router>
+      <Header loggedIn={loggedIn} onSignOut={handleSignOut} />
       <div className="App">
         {showLogin && (
           <div className="modal">
             <div className="modal-content">
-              <Login onCancel={() => setShowLogin(false)} onSuccess={() => {
-                setShowLogin(false);
-                window.location.href = "/homepage";
-              }} />
+              <Login onCancel={() => setShowLogin(false)} onSuccess={handleLoginSuccess} />
             </div>
           </div>
         )}
@@ -39,10 +63,7 @@ function App() {
         {showSignup && (
           <div className="modal">
             <div className="modal-content">
-              <Signup onCancel={() => setShowSignup(false)} onSuccess={() => {
-                setShowSignup(false);
-                window.location.href = "/homepage";
-              }} />
+              <Signup onCancel={() => setShowSignup(false)} onSuccess={handleSignupSuccess} />
             </div>
           </div>
         )}
@@ -51,12 +72,12 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/homepage" element={<Homepage />} />
           <Route path="/mygroups" element={<MyGroups />} />
+          <Route path="/expenses/:groupId" element={<Expenses />} />
+          <Route path="/settle" element={<Settle />} />
         </Routes>
       </div>
     </Router>
   );
 }
-
-
 
 export default App;

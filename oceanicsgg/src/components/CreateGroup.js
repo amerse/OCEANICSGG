@@ -8,8 +8,9 @@ function CreateGroup({ onCancel, onSuccess }) {
   const [names, setNames] = useState([]);
   const [error, setError] = useState('');
   const [groupName, setGroupName] = useState('');
+  const [selectedMemberIdx, setSelectedMemberIdx] = useState(null);
 
-  // Step 1: Enter number of people
+  // enter number of people
   const handlePaxSubmit = e => {
     e.preventDefault();
     const num = parseInt(pax, 10);
@@ -17,12 +18,16 @@ function CreateGroup({ onCancel, onSuccess }) {
       setError('Please enter a valid number greater than 0.');
       return;
     }
+    if (num > 8) {
+      setError('Maximum group size is 8.');
+      return;
+    }
     setNames(Array(num).fill(''));
     setStep(2);
     setError('');
   };
 
-  // Step 2: Enter names
+  // enter names
   const handleNameChange = (idx, value) => {
     const updated = [...names];
     updated[idx] = value;
@@ -31,23 +36,45 @@ function CreateGroup({ onCancel, onSuccess }) {
 
   const handleNamesSubmit = async e => {
     e.preventDefault();
-    if (names.some(name => !name.trim())) {
-      setError('All names are required.');
+
+    // make sure member names are unique
+    const trimmedNames = names.map(n => n.trim().toLowerCase());
+    const nameSet = new Set(trimmedNames);
+    if (nameSet.size !== trimmedNames.length) {
+      setError('Member names must be unique.');
       return;
     }
-    // Send to backend
-    const res = await fetch('http://localhost:3001/groups', {
+
+    // make sure group names are unique
+    const groupsRes = await fetch(`http://localhost:3001/groups?userId=${localStorage.getItem('user_id')}`);
+    const groups = await groupsRes.json();
+    const groupNameExists = groups.some(
+      g => g.name.trim().toLowerCase() === groupName.trim().toLowerCase()
+    );
+    if (groupNameExists) {
+      setError('Group name already exists. Please choose another name.');
+      return;
+    }
+
+    const userId = localStorage.getItem('user_id');
+    const membersWithUserId = names.map((name, idx) => ({
+      name,
+      userId: idx === selectedMemberIdx ? userId : null
+    }));
+
+    await fetch('http://localhost:3001/groups', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ groupName, names }),
+      body: JSON.stringify({
+        groupName,
+        members: membersWithUserId,
+        userId
+      })
     });
-    if (res.ok) {
-      alert('Group created successfully!');
-      if (onSuccess) onSuccess();
-      navigate('/homepage'); // Redirect to homepage
-    } else {
-      alert('Failed to create group.');
-    }
+
+    alert('Group created successfully!');
+    if (onSuccess) onSuccess();
+    navigate('/homepage');
   };
 
   return (
@@ -63,11 +90,12 @@ function CreateGroup({ onCancel, onSuccess }) {
             placeholder="Enter group name"
             required
           />
-          <label>How many people are in the group?</label>
+          <label>How many people are in the group? (Max 8)</label>
           <input
             className="group-input"
             type="number"
             min="1"
+            max="8"
             value={pax}
             onChange={e => setPax(e.target.value.replace(/\D/,''))}
             required
@@ -90,6 +118,18 @@ function CreateGroup({ onCancel, onSuccess }) {
               required
             />
           ))}
+          <label>Who are you in this group?</label>
+          <select
+          className='group-input'
+            value={selectedMemberIdx ?? ""}
+            onChange={e => setSelectedMemberIdx(Number(e.target.value))}
+            required
+          >
+            <option value="" disabled>Select yourself</option>
+            {names.map((name, idx) => (
+              <option key={idx} value={idx}>{name}</option>
+            ))}
+          </select>
           <button type="submit" className="btn">Create Group</button>
           <button type="button" className="btn cancel" onClick={onCancel}>Cancel</button>
           {error && <div style={{color:'red'}}>{error}</div>}

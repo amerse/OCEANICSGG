@@ -15,10 +15,11 @@ function Login({ onCancel, onSuccess }) {
       body: JSON.stringify(form),
     });
     if (res.ok) {
-      const responseUsername = form.email.split('@')[0]; // Assuming the username is the part before "@" in the email
+      const data = await res.json(); 
       alert('Login successful!');
       localStorage.setItem('userEmail', form.email);
-      localStorage.setItem('username', responseUsername); // Add this line
+      localStorage.setItem('username', data.username); 
+      localStorage.setItem('user_id', data.username);  
       if (onSuccess) onSuccess();
     } else {
       alert('Login failed.');
